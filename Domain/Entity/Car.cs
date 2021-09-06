@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entity
 {
-    public class Car  
+    public class Car  : BaseEntity
     {
         public int CarId { get; set; }
 

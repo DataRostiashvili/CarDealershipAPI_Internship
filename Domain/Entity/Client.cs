@@ -9,12 +9,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entity
 {
-    public class Client
+    public class Client : BaseEntity
     {
         public int ClientId { get; set; }
 
 
-        public bool IsActiveAccount { get; set; }
 
         [MaxLength(128)]
         public string Name { get; set; }

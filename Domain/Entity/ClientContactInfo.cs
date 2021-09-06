@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Domain.Entity
 {
-    public class ClientContactInfo 
+    public class ClientContactInfo : BaseEntity
     {
         public int ClientContactInfoId { get; set; }
 

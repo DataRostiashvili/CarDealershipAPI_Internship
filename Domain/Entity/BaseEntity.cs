@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.EntityModels
-{
-    public class BaseEntity
-    {
 
+namespace Domain.Entity
+{
+    public class BaseEntity 
+    {
+       public bool IsActive { get; set; }
+        public int Id { get; set; }
     }
 }
