@@ -54,6 +54,7 @@ namespace Application
             {
                 endpoints.MapControllers();
             });
+            
         }
     }
 }
