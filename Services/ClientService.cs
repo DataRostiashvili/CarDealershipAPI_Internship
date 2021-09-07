@@ -24,17 +24,19 @@ namespace Services
         public Client GetClient(string idNumber) 
         {
             IEnumerable<Client> result;
-            result = _mapper.Map<IEnumerable<Client>>(_repository.GetByPredicate(entityClient => entityClient.IDNumber == idNumber && entityClient.IsActive));
+            result = _mapper.Map<IEnumerable<Client>>(_repository
+                .GetByPredicate(entityClient => entityClient.IDNumber == idNumber && entityClient.IsActive));
 
             return result.FirstOrDefault();
         }
 
         public async Task InsertClientAsync(Client client) 
         {
-            var mapped = _mapper.Map<Domain.Entity.Client>(client);
             if (_repository.GetByPredicate(cl => cl.IDNumber == client.IDNumber && !cl.IsActive).Any())
             {
-                mapped.IsActive = true;
+                client.IsActive = true;
+                await UpdateClientAsync(client);
+                return;
             }
             else if (_repository.GetByPredicate(cl => cl.IDNumber == client.IDNumber && cl.IsActive).Any()) 
             {

@@ -21,10 +21,11 @@ namespace Domain.Entity
         public string Surname { get; set; }
 
         [Required]
-        [MaxLength(11)]
+        [RegularExpression(@"^\d{11}$", ErrorMessage = "Invalid IDNumber")]
         public string IDNumber { get; set; }
 
-        [Range(typeof(DateTime), "1/1/1870", "1/1/2022" ,ErrorMessage = "Unsupported Date of birth")]
+
+        [Range(typeof(DateTime), "1 /1/1870", "1/1/2022" ,ErrorMessage = "Unsupported Date of birth")]
         public DateTime DateOfBirth { get; set; }
 
 
