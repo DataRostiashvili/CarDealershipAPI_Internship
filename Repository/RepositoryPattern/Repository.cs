@@ -24,7 +24,6 @@ namespace Repository.RepositoryPattern
 
         }
 
-        //public Repository() { }
         public async Task DeleteAsync(T entity)
         {
             _ = entity ?? throw new ArgumentNullException(nameof(entity));

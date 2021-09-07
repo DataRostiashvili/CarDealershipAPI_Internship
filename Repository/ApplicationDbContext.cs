@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using Domain.Entity;
-
+using Repository.EntityTypeConfiguration;
 
 namespace Repository
 {
@@ -15,7 +15,8 @@ namespace Repository
         public DbSet<Client> Clients { get; set; }
         public DbSet<Car> Cars { get; set; }
 
-       
+
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -24,7 +25,9 @@ namespace Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new ClientEntityTypeConfiguration());
 
         }
+
     }
 }

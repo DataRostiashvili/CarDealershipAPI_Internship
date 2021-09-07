@@ -23,11 +23,11 @@ namespace Services
 
         public Client GetClient(string idNumber) 
         {
-            IEnumerable<Client> result;
-            result = _mapper.Map<IEnumerable<Client>>(_repository
-                .GetByPredicate(entityClient => entityClient.IDNumber == idNumber && entityClient.IsActive));
 
-            return result.FirstOrDefault();
+            var result = _mapper.Map<Client>(_repository
+                .GetByPredicate(entityClient => entityClient.IDNumber == idNumber && entityClient.IsActive).FirstOrDefault());
+
+            return result;
         }
 
         public async Task InsertClientAsync(Client client) 
