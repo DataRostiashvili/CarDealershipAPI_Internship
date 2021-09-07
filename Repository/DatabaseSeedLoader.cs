@@ -11,14 +11,13 @@ namespace Repository
     {
         static List<Client> clients = new()
         {
-             new Client { Name = "Data", Surname = "Rostiashvili", DateOfBirth = DateTime.Now, IsActiveAccount}
+            // new Client { Name = "Data", Surname = "Rostiashvili", DateOfBirth = DateTime.Now, IsActiveAccount}
         };
         static List<Car> cars = new();
 
         public static void LoadData()
         {
             using var context = new ApplicationDbContext();
-            context.Add<Client>(new Client { Name})
         }
     }
 }

@@ -11,6 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Services;
+using Repository.RepositoryPattern;
+using Application.Mappings;
 
 namespace Application
 {
@@ -32,6 +36,16 @@ namespace Application
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Application", Version = "v1" });
             });
+
+            services.AddAutoMapper(typeof(ApiToDtoModelMappingProfile), typeof(DtoToEntityModelMappingProfile));
+
+            #region services injection
+            services.AddDbContext<Repository.ApplicationDbContext>();
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddTransient<IClientService, ClientService>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

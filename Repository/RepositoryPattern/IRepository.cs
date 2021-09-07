@@ -7,12 +7,14 @@ using Domain.Entity;
 
 namespace Repository.RepositoryPattern
 {
-    public interface IRepository<T> where T : BaseEntity
+    public interface IRepository<T> : IAsyncDisposable where T : BaseEntity
     {
         IEnumerable<T> GetAll();
-        Task Delete(T entity);
-        Task Insert(T entity);
-        Task Update(T entity);
+        IEnumerable<T> GetByPredicate(Func<T, bool> predicate);
+        Task DeleteAsync(T entity);
+        Task DeleteByPredicateAsync(Func<T, bool> predicate);
+        Task InsertAsync(T entity);
+        Task UpdateAsync(T entity);
         
     }
 }

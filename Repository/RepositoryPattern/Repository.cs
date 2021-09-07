@@ -5,11 +5,13 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Domain.Entity;
+using System.Reflection;
+
 
 
 namespace Repository.RepositoryPattern
 {
-    public abstract class Repository<T> : IRepository<T> where T : BaseEntity
+    public class Repository<T> : IRepository<T>  where T : BaseEntity
     {
         readonly ApplicationDbContext _applicationDbContext;
         DbSet<T> entities;
@@ -22,35 +24,57 @@ namespace Repository.RepositoryPattern
 
         }
 
-        public async Task Delete(T entity)
+        //public Repository() { }
+        public async Task DeleteAsync(T entity)
         {
             _ = entity ?? throw new ArgumentNullException(nameof(entity));
             (await entities.FindAsync(entity)).IsActive = false;
             await _applicationDbContext.SaveChangesAsync();
         }
 
-        public  IEnumerable<T> GetAll() => entities.AsEnumerable();
-
-        public async Task Insert(T entity) 
+        public async Task DeleteByPredicateAsync(Func<T, bool> predicate) 
         {
-            _ = entity ?? throw new ArgumentNullException(nameof(entity));
-            if ((await entities.FindAsync(entity)) is not null)
-            {
-                entity.IsActive = true;
-                return;
-            }
-            else
-            {
-                await entities.AddAsync(entity);
-            }
+            var list = GetByPredicate(predicate);
+
+            foreach (var entity in list)
+                entity.IsActive = false;
 
             await _applicationDbContext.SaveChangesAsync();
         }
 
-        public async Task Update(T entity)
+        public  IEnumerable<T> GetAll() => entities.AsEnumerable();
+
+        public  IEnumerable<T> GetByPredicate(Func<T, bool> predicate) 
+            =>  entities.Where(predicate);
+        
+       
+
+
+        public async Task InsertAsync(T entity) 
         {
             _ = entity ?? throw new ArgumentNullException(nameof(entity));
             
+            await entities.AddAsync(entity);
+            
+            await _applicationDbContext.SaveChangesAsync();
         }
+
+        public async Task UpdateAsync(T entity)
+        {
+            _ = entity ?? throw new ArgumentNullException(nameof(entity));
+            entities.Update(entity);
+            await _applicationDbContext.SaveChangesAsync();
+                
+        }
+
+
+        #region IDisposable implementation
+
+        async ValueTask IAsyncDisposable.DisposeAsync()
+        {
+            await _applicationDbContext.DisposeAsync();
+        }
+
+        #endregion
     }
 }
