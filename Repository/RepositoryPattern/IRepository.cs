@@ -11,7 +11,6 @@ namespace Repository.RepositoryPattern
     {
         IEnumerable<T> GetAll();
         IEnumerable<T> GetByPredicate(Func<T, bool> predicate);
-        Task DeleteAsync(T entity);
         Task DeleteByPredicateAsync(Func<T, bool> predicate);
         Task InsertAsync(T entity);
         Task UpdateAsync(T entity);

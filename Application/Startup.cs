@@ -22,6 +22,8 @@ namespace Application
     public class Startup
     {
         readonly IWebHostEnvironment _currentEnvironment;
+
+
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
@@ -41,7 +43,7 @@ namespace Application
             });
 
             services.AddAutoMapper(typeof(ApiToDtoModelMappingProfile), typeof(DtoToEntityModelMappingProfile),
-                typeof(EntityToDtoModelMappingProfile));
+                typeof(DtoToApiModelMappingProfile));
 
             services.AddDbContext<Repository.ApplicationDbContext>();
 

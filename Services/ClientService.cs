@@ -47,8 +47,19 @@ namespace Services
 
         }
 
-        public async Task UpdateClientAsync(Client client) => 
-            await _repository.UpdateAsync(_mapper.Map<Domain.Entity.Client>(client));
+        public async Task UpdateClientAsync(Client client) 
+        {
+
+            var clientEntity = _repository
+                .GetByPredicate(entityClient => entityClient.IDNumber == client.IDNumber).FirstOrDefault();
+
+            clientEntity.Name = client.Name;
+            clientEntity.Surname = client.Surname;
+            clientEntity.DateOfBirth = client.DateOfBirth;
+            
+            await _repository.UpdateAsync(clientEntity);
+
+        }
 
 
         public async Task DeleteClientAsync(string idNumber)

@@ -24,12 +24,7 @@ namespace Repository.RepositoryPattern
 
         }
 
-        public async Task DeleteAsync(T entity)
-        {
-            _ = entity ?? throw new ArgumentNullException(nameof(entity));
-            (await entities.FindAsync(entity)).IsActive = false;
-            await _applicationDbContext.SaveChangesAsync();
-        }
+        
 
         public async Task DeleteByPredicateAsync(Func<T, bool> predicate) 
         {
