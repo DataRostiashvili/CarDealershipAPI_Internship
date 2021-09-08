@@ -16,6 +16,7 @@ using Services;
 using Repository.RepositoryPattern;
 using Repository.DatabaseSeedLoader;
 using Application.Mappings;
+using Serilog;
 
 namespace Application
 {
@@ -70,6 +71,9 @@ namespace Application
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Application v1"));
             }
 
+            app.UseSerilogRequestLogging();
+
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

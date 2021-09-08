@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Services;
 using AutoMapper;
 using Domain.APIModels;
+using Serilog;
+using Microsoft.Extensions.Logging;
+
 namespace Application.Controllers
 {
     [Route("api/[controller]")]
@@ -14,11 +17,15 @@ namespace Application.Controllers
     {
         private readonly IClientService _clientService;
         private readonly IMapper _mapper;
+        private readonly ILogger<ClientController> _logger;
 
-        public ClientController(IClientService clientService, IMapper mapper) 
+        public ClientController(IClientService clientService,
+            IMapper mapper,
+            ILogger<ClientController> logger) 
         {
             _clientService = clientService;
             _mapper = mapper; 
+            _logger = logger;
         }
 
         [HttpPost]
@@ -26,6 +33,8 @@ namespace Application.Controllers
         {
 
             await _clientService.InsertClientAsync(_mapper.Map<Domain.DTOs.Client>(client));
+
+            _logger.LogInformation($"client with idNumber {client.IDNumber} registered successfully");
 
             return CreatedAtAction(nameof(GetClient), new { id = client.IDNumber }, client);
         }
@@ -42,6 +51,8 @@ namespace Application.Controllers
         {
             await _clientService.DeleteClientAsync(idNumber);
 
+            _logger.LogInformation($"client with idNumber {idNumber} has been deleted");
+
             return Ok();
         }
 
@@ -49,9 +60,15 @@ namespace Application.Controllers
         public async Task<ActionResult> UpdateClientAsync(Client client) 
         {
             if (_clientService.GetClient(client.IDNumber) is null)
+            {
+                _logger.LogInformation($"client with idNumber {client.IDNumber} doesn't exists");
                 return BadRequest();
+            }
 
             await  _clientService.UpdateClientAsync(_mapper.Map<Domain.DTOs.Client>(client));
+
+            _logger.LogInformation($"client with idNumber {client.IDNumber} has been updated successfully");
+
 
             return Ok();
 
