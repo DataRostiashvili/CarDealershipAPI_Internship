@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore.SqlServer;
+using Microsoft.EntityFrameworkCore;
 using Services;
 using Repository.RepositoryPattern;
 using Repository.DatabaseSeedLoader;
@@ -46,12 +48,13 @@ namespace Application
             services.AddAutoMapper(typeof(ApiToDtoModelMappingProfile), typeof(DtoToEntityModelMappingProfile),
                 typeof(DtoToApiModelMappingProfile));
 
-            services.AddDbContext<Repository.ApplicationDbContext>();
+            services.AddDbContext<Repository.ApplicationDbContext>(options =>
+                options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;"));
 
-            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddTransient<IClientService, ClientService>();
-
+            services.AddTransient<ICarService, CarService>();
 
 
 

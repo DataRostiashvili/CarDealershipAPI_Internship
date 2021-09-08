@@ -29,6 +29,9 @@ namespace Application
             catch (Exception ex)
             {
                 Log.Fatal(ex, "Host terminated");
+#if DEBUG
+                throw;
+#endif
                 return 1;
             }
             finally

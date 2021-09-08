@@ -19,11 +19,11 @@ namespace Domain.Entity
         [Required]
         public string Model { get; set; }
 
-        [RegularExpression("@^[A-Z]{2}[0-9]{3}[A-Z]{2}$")]
+        [RegularExpression(@"^[A-Z]{2}[0-9]{3}[A-Z]{2}$")]
         [Required]
         public string StateNumber { get; set; }
 
-        [RegularExpression(@"^/d{4}$")]
+        [RegularExpression(@"^\d{4}$")]
         [Required]
         public int ProductionYear { get; set; }
 

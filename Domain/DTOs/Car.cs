@@ -13,7 +13,6 @@ namespace Domain.DTOs
         public decimal SellingPrice { get; set; }
         public DateTime SellingStartDate { get; set; }
         public DateTime SellingEndDate { get; set; }
-        public bool IsSold { get; set; }
 
     }
 }
