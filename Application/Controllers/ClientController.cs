@@ -8,6 +8,7 @@ using AutoMapper;
 using Domain.APIModels;
 using Serilog;
 using Microsoft.Extensions.Logging;
+using Application.Logger;
 
 namespace Application.Controllers
 {
@@ -17,11 +18,11 @@ namespace Application.Controllers
     {
         private readonly IClientService _clientService;
         private readonly IMapper _mapper;
-        private readonly ILogger<ClientController> _logger;
+        private readonly ILoggerAdapter<ClientController> _logger;
 
         public ClientController(IClientService clientService,
             IMapper mapper,
-            ILogger<ClientController> logger) 
+            ILoggerAdapter<ClientController> logger) 
         {
             _clientService = clientService;
             _mapper = mapper; 

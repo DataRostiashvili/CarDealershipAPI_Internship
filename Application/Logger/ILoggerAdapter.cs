@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Application.LoggerAdapter
+namespace Application.Logger
 {
     public interface ILoggerAdapter<T>
     {

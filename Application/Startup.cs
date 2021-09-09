@@ -19,6 +19,7 @@ using Repository.RepositoryPattern;
 using Repository.DatabaseSeedLoader;
 using Application.Mappings;
 using Serilog;
+using Application.Logger;
 
 namespace Application
 {
@@ -56,7 +57,7 @@ namespace Application
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<ICarService, CarService>();
 
-
+            services.AddScoped(typeof(ILoggerAdapter<>), typeof(LoggerAdapter<>));
 
             if (_currentEnvironment.IsDevelopment())
             {

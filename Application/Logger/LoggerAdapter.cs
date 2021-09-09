@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
-namespace Application.LoggerAdapter
+namespace Application.Logger
 {
     public class LoggerAdapter<T> : ILoggerAdapter<T>
     {
