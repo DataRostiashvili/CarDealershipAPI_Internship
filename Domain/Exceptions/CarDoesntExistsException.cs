@@ -10,5 +10,7 @@ namespace Domain.Exceptions
     {
         public CarDoesntExistsException(string message, Exception innerException = null)
             : base(message, innerException) { }
+        public CarDoesntExistsException()
+        { }
     }
 }

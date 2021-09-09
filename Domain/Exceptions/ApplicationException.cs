@@ -10,5 +10,8 @@ namespace Domain.Exceptions
     {
         public ApplicationException(string message, Exception innerException = null)
             : base(message, innerException) { }
+
+        public ApplicationException()
+        { }
     }
 }

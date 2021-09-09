@@ -10,6 +10,8 @@ namespace Domain.Exceptions
         {
             public ClientAlreadyExistsException(string message, Exception innerException = null)
               : base(message, innerException) { }
-        }
+        public ClientAlreadyExistsException()
+        { }
+    }
     
 }

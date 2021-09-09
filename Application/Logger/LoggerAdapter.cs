@@ -19,5 +19,10 @@ namespace Application.Logger
         {
             _logger.LogInformation(message);
         }
+
+        public void LogError(Exception ex, string message, params object[] args)
+        {
+            _logger.LogError(ex, message, args);
+        }
     }
 }

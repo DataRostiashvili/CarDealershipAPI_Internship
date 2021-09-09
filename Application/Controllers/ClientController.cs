@@ -9,6 +9,8 @@ using Domain.APIModels;
 using Serilog;
 using Microsoft.Extensions.Logging;
 using Application.Logger;
+using Domain.Exceptions;
+
 
 namespace Application.Controllers
 {
@@ -32,8 +34,20 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<ActionResult<Client>> RegisterClientAsync(Client client)
         {
+            if (!ModelState.IsValid)
+            {
+                var m = ModelState.ValidationState;
+            }
 
-            await _clientService.InsertClientAsync(_mapper.Map<Domain.DTOs.Client>(client));
+            try
+            {
+                await _clientService.InsertClientAsync(_mapper.Map<Domain.DTOs.Client>(client));
+            }
+            catch (ClientAlreadyExistsException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest(ex.Message);
+            }
 
             _logger.LogInformation($"client with idNumber {client.IDNumber} registered successfully");
 

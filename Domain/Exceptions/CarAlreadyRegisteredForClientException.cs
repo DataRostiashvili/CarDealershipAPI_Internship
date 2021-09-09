@@ -10,5 +10,7 @@ namespace Domain.Exceptions
     {
         public CarAlreadyRegisteredForClientException(string message, Exception innerException = null)
          : base(message, innerException) { }
+        public CarAlreadyRegisteredForClientException()
+        { }
     }
 }
