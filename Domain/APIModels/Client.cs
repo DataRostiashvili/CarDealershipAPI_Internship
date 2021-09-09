@@ -22,6 +22,14 @@ namespace Domain.APIModels
         [Range(typeof(DateTime), "1/1/1870", "1/1/2022", ErrorMessage = "Unsupported Date of birth")]
         public DateTime DateOfBirth { get; set; }
 
+        [Required]
+        [RegularExpression(@"^\d{9}$")]
+        public string PhoneNumber { get; set; }
+        [RegularExpression(@"^.+@.+(\.).+$")]
+        public string Email { get; set; }
+        [MaxLength(1024)]
+        public string Address { get; set; }
+
 
 
     }

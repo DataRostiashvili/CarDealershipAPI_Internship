@@ -13,6 +13,14 @@ namespace Repository.EntityTypeConfiguration
     {
         public void Configure(EntityTypeBuilder<Client> entityTypeBuilder)
         {
+
+            entityTypeBuilder.Navigation(client => client.Cars)
+                .AutoInclude();
+
+            entityTypeBuilder.Navigation(client => client.ClientContactInfo)
+                .AutoInclude();
+
+
             entityTypeBuilder
                 .HasIndex(client => client.IDNumber)
                 .IsUnique();

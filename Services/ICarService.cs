@@ -11,5 +11,7 @@ namespace Services
         Task RegisterCarForClientAsync(string clientIDNumber, Car car);
         Task DeleteCarForClientAsync(string clientIDNumber, string carVINCode);
         IEnumerable<Car> GetCarsForClient(string clientIDNumber);
+        IEnumerable<Car> GetCarsForSale(DateTime from, DateTime to);
+        Task BuyCarForClientAsync(string clientIDNumber, string carVINCode);
     }
 }

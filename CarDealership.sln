@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BD985756-3541-4BB1-AD21-75983178EFB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationTest", "ApplicationTest\ApplicationTest.csproj", "{972FF164-7607-4BB0-B968-C534BDB1CF2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationTest", "ApplicationTest\ApplicationTest.csproj", "{972FF164-7607-4BB0-B968-C534BDB1CF2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryTest", "RepositoryTest\RepositoryTest.csproj", "{9D736687-99C8-4237-863A-C5AE4164275E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryTest", "RepositoryTest\RepositoryTest.csproj", "{9D736687-99C8-4237-863A-C5AE4164275E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

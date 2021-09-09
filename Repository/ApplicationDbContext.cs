@@ -20,16 +20,20 @@ namespace Repository
             : base(options)
         { }
 
+      
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           // optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.ApplyConfiguration(new ClientEntityTypeConfiguration());
-
+            modelBuilder.ApplyConfiguration(new CarEntityTypeConfiguration());
+            
         }
 
+        
     }
 }

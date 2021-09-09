@@ -12,10 +12,11 @@ namespace Services
 {
     public class ClientService : IClientService
     {
-        private IRepository<Domain.Entity.Client> _repository;
-        private IMapper _mapper;
+        private readonly IRepository<Domain.Entity.Client> _repository;
+        private readonly IMapper _mapper;
 
-        public ClientService(IRepository<Domain.Entity.Client> repository, IMapper mapper)
+        public ClientService(IRepository<Domain.Entity.Client> repository,
+            IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -40,7 +41,7 @@ namespace Services
             }
             else if (_repository.GetByPredicate(cl => cl.IDNumber == client.IDNumber && cl.IsActive).Any()) 
             {
-                throw new UserAlreadyExistsException(nameof(client));
+                throw new ClientAlreadyExistsException(nameof(client));
             }
 
             await _repository.InsertAsync(_mapper.Map<Domain.Entity.Client>(client));

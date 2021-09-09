@@ -22,7 +22,7 @@ namespace Services
             IMapper mapper)
         {
             _carRepository = carRepository;
-            _clientRepository = clientRepository; 
+            _clientRepository = clientRepository;
             _mapper = mapper;
         }
 
@@ -51,6 +51,38 @@ namespace Services
 
             await _clientRepository.UpdateAsync(clientEntity);
         }
+        public async Task BuyCarForClientAsync(string clientIDNumber, string carVINCode)
+        {
+            var clientEntity = _clientRepository
+                .GetByPredicate(entityClient => entityClient.IDNumber == clientIDNumber)
+                .FirstOrDefault();
+
+            
+              _ = clientEntity ??  throw new ClientDoesntExistsException("client with the given IDNumber doesn't exists");
+            
+
+            var carEntity = _carRepository
+                .GetByPredicate(car => car.VIN == carVINCode)
+                .FirstOrDefault();
+
+            _ = clientEntity ?? throw new CarDoesntExistsException($"car (VIN: {carVINCode} doesn't exists");
+
+
+            foreach (var carOfClient in GetCarsForClient(clientIDNumber))
+            {
+                if (carOfClient.VIN == carVINCode)
+                {
+                    var msg = $"car (VIN: {carVINCode}) for the client (ID: {clientIDNumber}) already exists in database";
+                    throw new CarAlreadyRegisteredForClientException(msg);
+                }
+            }
+
+
+            carEntity.Client = clientEntity;
+            await _carRepository.UpdateAsync(carEntity);
+            
+
+        }
         public async Task DeleteCarForClientAsync(string clientIDNumber, string carVINCode)
         {
             var carToDelete = GetCarsForClient(clientIDNumber)
@@ -64,6 +96,11 @@ namespace Services
 
             await _carRepository.DeleteByPredicateAsync(carEntity => carEntity.VIN == carVINCode);
         }
+        public IEnumerable<Car> GetCarsForSale(DateTime from, DateTime to)
+        {
+            return GetAllCars().Where(car => car.SellingStartDate > from && car.SellingEndDate < to);
+        }
+        
         public IEnumerable<Car> GetCarsForClient(string clientIDNumber)
         {
             var entityList = _carRepository
@@ -71,5 +108,13 @@ namespace Services
 
             return _mapper.Map<Domain.DTOs.Car[]>(entityList);
         }
+
+
+        #region private methods
+        private IEnumerable<Car> GetAllCars() =>
+            _mapper.Map<Domain.DTOs.Car[]>(_carRepository.GetAll());
+
+        #endregion
+
     }
 }

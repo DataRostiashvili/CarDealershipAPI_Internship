@@ -31,7 +31,7 @@ namespace Domain.Entity
 
         public ClientContactInfo ClientContactInfo { get; set; }
 
-        public ICollection<Car> Cars { get; set; }
+        public ICollection<Car> Cars { get; set; } = new List<Car>();
 
     }
 }

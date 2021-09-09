@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public class UserAlreadyExistsException : ApplicationException
+    public class CarDoesntExistsException : ApplicationException
     {
-        public UserAlreadyExistsException(string message, Exception innerException = null)
+        public CarDoesntExistsException(string message, Exception innerException = null)
             : base(message, innerException) { }
     }
 }
