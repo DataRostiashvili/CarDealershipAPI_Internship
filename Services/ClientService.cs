@@ -28,6 +28,9 @@ namespace Services
             var result = _mapper.Map<Client>(_repository
                 .GetByPredicate(entityClient => entityClient.IDNumber == idNumber && entityClient.IsActive).FirstOrDefault());
 
+            if (result is null)
+                throw new ClientDoesntExistsException($"client (ID: {idNumber}) doesn't exists");
+
             return result;
         }
 
@@ -54,6 +57,9 @@ namespace Services
             var clientEntity = _repository
                 .GetByPredicate(entityClient => entityClient.IDNumber == client.IDNumber).FirstOrDefault();
 
+            if(clientEntity is null)
+                throw new ClientDoesntExistsException($"client (ID: {client.IDNumber}) doesn't exists");
+
             clientEntity.Name = client.Name;
             clientEntity.Surname = client.Surname;
             clientEntity.DateOfBirth = client.DateOfBirth;
@@ -67,6 +73,8 @@ namespace Services
         {
             if (ClientExistsAndIsActive(idNumber))
                 await _repository.DeleteByPredicateAsync(client => client.IDNumber.Equals(idNumber));
+            else
+                throw new ClientDoesntExistsException($"client (ID: {idNumber}) doesn't exists");
 
         }
 

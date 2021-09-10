@@ -34,10 +34,7 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<ActionResult<Client>> RegisterClientAsync(Client client)
         {
-            if (!ModelState.IsValid)
-            {
-                var m = ModelState.ValidationState;
-            }
+          
 
             try
             {
@@ -57,14 +54,32 @@ namespace Application.Controllers
         [HttpGet]
         public ActionResult<Client> GetClient(string idNumber) 
         {
-            var dtoClient = _clientService.GetClient(idNumber);
+            Domain.DTOs.Client dtoClient;
+            try
+            {
+                 dtoClient = _clientService.GetClient(idNumber);
+            }
+            catch (ClientDoesntExistsException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest(ex.Message);
+            }
+
             return Ok(_mapper.Map<Domain.APIModels.Client>(dtoClient));
         }
 
         [HttpDelete]
         public async Task<ActionResult> DeleteClientAsync(string idNumber) 
         {
-            await _clientService.DeleteClientAsync(idNumber);
+            try
+            {
+                await _clientService.DeleteClientAsync(idNumber);
+            }
+            catch (ClientDoesntExistsException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest(ex.Message);
+            }
 
             _logger.LogInformation($"client with idNumber {idNumber} has been deleted");
 
@@ -74,17 +89,21 @@ namespace Application.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateClientAsync(Client client) 
         {
-            if (_clientService.GetClient(client.IDNumber) is null)
-            {
-                _logger.LogInformation($"client with idNumber {client.IDNumber} doesn't exists");
-                return BadRequest();
-            }
+           
 
-            await  _clientService.UpdateClientAsync(_mapper.Map<Domain.DTOs.Client>(client));
+            try 
+            {
+                await _clientService.UpdateClientAsync(_mapper.Map<Domain.DTOs.Client>(client));
+
+            }
+            catch (ClientDoesntExistsException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest(ex.Message);
+            }
+            
 
             _logger.LogInformation($"client with idNumber {client.IDNumber} has been updated successfully");
-
-
             return Ok();
 
         }

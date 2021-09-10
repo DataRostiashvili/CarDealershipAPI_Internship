@@ -13,6 +13,7 @@ using Application.Logger;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Exceptions;
+using Domain.APIModels;
 
 namespace ApplicationTest.Controllers
 {
@@ -29,7 +30,7 @@ namespace ApplicationTest.Controllers
 
 
 
-
+        #region RegisterClientAsync
 
         [Fact]
         public async Task RegisterClientAsync__should_return_ok_for_valid_input()
@@ -64,7 +65,7 @@ namespace ApplicationTest.Controllers
 
 
             Mock<ILoggerAdapter<ClientController>> mockLogger = new();
-            mockLogger.Setup(logger => logger.LogInformation(It.IsAny<string>()));
+            mockLogger.Setup(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()));
 
 
 
@@ -73,18 +74,21 @@ namespace ApplicationTest.Controllers
 
             var res = await clientController.RegisterClientAsync(_sampleValidClient);
 
-            mockLogger.Verify(logger => logger.LogInformation(It.IsAny<string>()), Times.Once());
+            mockLogger.Verify(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()), Times.Once());
 
             Assert.IsType<BadRequestObjectResult>(res.Result);
 
         }
+        #endregion
 
+
+        #region GetClient
         [Fact]
-        public async Task RegisterClientAsync__should_not_validate_invalid_and_validate_valid_client_input()
+        public void GetClient__should_return_bad_request_for_nonexistent_client()
         {
             var mockClientService = Mock.Of<IClientService>();
-            Mock.Get(mockClientService).Setup(service => service.InsertClientAsync(It.IsAny<Domain.DTOs.Client>()))
-                .Returns(Task.CompletedTask);
+            Mock.Get(mockClientService).Setup(service => service.GetClient(It.IsAny<string>()))
+                .Throws<ClientDoesntExistsException>();
 
 
             Mock<ILoggerAdapter<ClientController>> mockLogger = new();
@@ -95,7 +99,135 @@ namespace ApplicationTest.Controllers
             var clientController = new ClientController(Mock.Get(mockClientService).Object,
                _mapper, mockLogger.Object);
 
-            await clientController.RegisterClientAsync(_sampleInvalidClient);
+            var res = clientController.GetClient(It.IsAny<string>());
+
+            mockLogger.Verify(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()), Times.Once());
+
+            Assert.IsType<BadRequestObjectResult>(res.Result);
         }
+
+        [Fact]
+        public void GetClient__should_return_ok_for_exsiting_client()
+        {
+            var mockClientService = Mock.Of<IClientService>();
+            Mock.Get(mockClientService).Setup(service => service.GetClient(It.IsAny<string>()))
+                .Returns(It.IsAny<Domain.DTOs.Client>());
+
+
+            Mock<ILoggerAdapter<ClientController>> mockLogger = new();
+            mockLogger.Setup(logger => logger.LogInformation( It.IsAny<string>()));
+
+
+
+            var clientController = new ClientController(Mock.Get(mockClientService).Object,
+               _mapper, mockLogger.Object);
+
+            var res = clientController.GetClient(It.IsAny<string>());
+
+
+            Assert.IsType<OkObjectResult>(res.Result);
+        }
+
+        #endregion
+
+        #region UpdateClient
+
+        [Fact]  
+        public async Task UpdateClient__should_return_bad_request_result_object_for_nonexistent_user()
+        {
+            var mockClientService = Mock.Of<IClientService>();
+            Mock.Get(mockClientService).Setup(service => service.UpdateClientAsync(It.IsAny<Domain.DTOs.Client>()))
+                .Throws<ClientDoesntExistsException>();
+
+
+            Mock<ILoggerAdapter<ClientController>> mockLogger = new();
+            mockLogger.Setup(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()));
+
+
+
+            var clientController = new ClientController(Mock.Get(mockClientService).Object,
+               _mapper, mockLogger.Object);
+
+            var res = await clientController.UpdateClientAsync(_sampleValidClient);
+
+            mockLogger.Verify(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()), Times.Once());
+
+            Assert.IsType<BadRequestObjectResult>(res);
+
+        }
+
+        [Fact]
+        async Task UpdateClient__should_return_ok_result_object_for_valid_user()
+        {
+            var mockClientService = Mock.Of<IClientService>();
+            Mock.Get(mockClientService).Setup(service => service.UpdateClientAsync(It.IsAny<Domain.DTOs.Client>()))
+                .Returns(Task.CompletedTask);
+
+
+            Mock<ILoggerAdapter<ClientController>> mockLogger = new();
+            mockLogger.Setup(logger => logger.LogInformation(It.IsAny<string>()));
+
+
+
+            var clientController = new ClientController(Mock.Get(mockClientService).Object,
+               _mapper, mockLogger.Object);
+
+            var res = await clientController.UpdateClientAsync(_sampleValidClient);
+            mockLogger.Verify(logger=> logger.LogInformation(It.IsAny<string>()), Times.Once());
+
+            Assert.IsType<OkResult>(res);
+        }
+
+        #endregion
+
+
+        #region DeleteClient
+        [Fact]
+        public async Task DeleteClientAsync__should_return_bad_request_for_nonexistent_user()
+        {
+            var mockClientService = Mock.Of<IClientService>();
+            Mock.Get(mockClientService).Setup(service => service.DeleteClientAsync(It.IsAny<string>()))
+                .Throws<ClientDoesntExistsException>();
+
+
+            Mock<ILoggerAdapter<ClientController>> mockLogger = new();
+            mockLogger.Setup(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()));
+
+
+
+            var clientController = new ClientController(Mock.Get(mockClientService).Object,
+               _mapper, mockLogger.Object);
+
+            var res = await clientController.DeleteClientAsync(It.IsAny<string>());
+
+            mockLogger.Verify(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()), Times.Once());
+
+            Assert.IsType<BadRequestObjectResult>(res);
+
+        }
+
+        [Fact]
+        public async Task DeleteClientAsync__should_return_ok_for_valid_user()
+        {
+            var mockClientService = Mock.Of<IClientService>();
+            Mock.Get(mockClientService).Setup(service => service.DeleteClientAsync(It.IsAny<string>()))
+                .Returns(Task.CompletedTask);
+
+
+            Mock<ILoggerAdapter<ClientController>> mockLogger = new();
+            mockLogger.Setup(logger => logger.LogInformation(It.IsAny<string>()));
+
+
+
+            var clientController = new ClientController(Mock.Get(mockClientService).Object,
+               _mapper, mockLogger.Object);
+
+            var res = await clientController.DeleteClientAsync(It.IsAny<string>());
+            mockLogger.Verify(logger => logger.LogInformation(It.IsAny<string>()), Times.Once());
+
+            Assert.IsType<OkResult>(res);
+        }
+        #endregion
+
     }
 }
