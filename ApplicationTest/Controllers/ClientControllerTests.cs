@@ -20,7 +20,7 @@ namespace ApplicationTest.Controllers
     public class ClientControllerTests
     {
         //readonly Mock<IClientService> _mockClientService = new();
-        readonly IMapper _mapper = MockMapperFactory.Create();
+        readonly IMapper _mapper = RealMapperFactory.Create();
         //readonly Mock<ILoggerAdapter<ClientController>> _mockLogger = new();
 
         readonly Domain.APIModels.Client _sampleValidClient = new()

@@ -9,7 +9,7 @@ using Application.Mappings;
 
 namespace ApplicationTest
 {
-    public static  class MockMapperFactory
+    public static  class RealMapperFactory
     {
         public static IMapper Create()
         {

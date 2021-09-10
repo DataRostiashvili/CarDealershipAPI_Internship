@@ -8,6 +8,7 @@ using Services;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using Domain.Exceptions;
+using Application.Logger;
 
 
 namespace Application.Controllers
@@ -18,13 +19,13 @@ namespace Application.Controllers
     {
         readonly IMapper _mapper;
         readonly ICarService _carService;
-        readonly ILogger<CarController> _logger;
+        readonly ILoggerAdapter<CarController> _logger;
 
 
         public CarController(
             IMapper mapper,
             ICarService carService,
-            ILogger<CarController> logger
+            ILoggerAdapter<CarController> logger
             )
         {
             _mapper = mapper;
@@ -43,13 +44,13 @@ namespace Application.Controllers
             }
             catch (CarAlreadyRegisteredForClientException ex)
             {
-                _logger.LogInformation(ex.Message);
+                _logger.LogError(ex, ex.Message);
                 return BadRequest(ex.Message);
 
             }
             catch (ClientDoesntExistsException ex)
             {
-                _logger.LogInformation(ex.Message);
+                _logger.LogError(ex, ex.Message);
                 return BadRequest(ex.Message);
             }
 
@@ -68,20 +69,21 @@ namespace Application.Controllers
             }
             catch (ClientDoesntExistsException ex)
             {
-                _logger.LogInformation(ex.Message);
+                _logger.LogError(ex, ex.Message);
                 return BadRequest(ex.Message);
             }
             catch (CarDoesntExistsException ex)
             {
-                _logger.LogInformation(ex.Message);
+                _logger.LogError(ex, ex.Message);
                 return BadRequest(ex.Message);
             }
             catch (CarAlreadyRegisteredForClientException ex)
             {
-                _logger.LogInformation(ex.Message);
+                _logger.LogError(ex, ex.Message);
                 return BadRequest(ex.Message);
             }
 
+            _logger.LogInformation($"car (VIN: {carVINCode}) bought for client (ID: {clientIDNumber}");
             return Ok();
             
         }
@@ -93,9 +95,9 @@ namespace Application.Controllers
             {
                 await _carService.DeleteCarForClientAsync(clientIDNumber, carVINCode);
             }
-            catch (InvalidRequestException ex)
+            catch (CarDoesntExistsException ex)
             {
-                _logger.LogInformation(ex.Message);
+                _logger.LogError(ex, ex.Message);
                 return BadRequest(ex.Message);
             }
 

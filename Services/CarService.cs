@@ -91,7 +91,7 @@ namespace Services
             if (carToDelete is null)
             {
                 var errMsg = $"either client (ID: {clientIDNumber}) or car (VIN: {carVINCode} for the given client doesn't exists";
-                throw new InvalidRequestException(errMsg);
+                throw new CarDoesntExistsException(errMsg);
             }
 
             await _carRepository.DeleteByPredicateAsync(carEntity => carEntity.VIN == carVINCode);
