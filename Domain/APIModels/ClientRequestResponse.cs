@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.APIModels
 {
-    public class Client
+    public class ClientRequestResponse
     {
 
         [MaxLength(128)]

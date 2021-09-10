@@ -12,20 +12,20 @@ namespace Services
 {
     public class ClientService : IClientService
     {
-        private readonly IRepository<Domain.Entity.Client> _repository;
+        private readonly IRepository<Domain.Entity.ClientEntity> _repository;
         private readonly IMapper _mapper;
 
-        public ClientService(IRepository<Domain.Entity.Client> repository,
+        public ClientService(IRepository<Domain.Entity.ClientEntity> repository,
             IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public Client GetClient(string idNumber) 
+        public ClientDto GetClient(string idNumber) 
         {
 
-            var result = _mapper.Map<Client>(_repository
+            var result = _mapper.Map<ClientDto>(_repository
                 .GetByPredicate(entityClient => entityClient.IDNumber == idNumber && entityClient.IsActive).FirstOrDefault());
 
             if (result is null)
@@ -34,7 +34,7 @@ namespace Services
             return result;
         }
 
-        public async Task InsertClientAsync(Client client) 
+        public async Task InsertClientAsync(ClientDto client) 
         {
             if (_repository.GetByPredicate(cl => cl.IDNumber == client.IDNumber && !cl.IsActive).Any())
             {
@@ -47,11 +47,11 @@ namespace Services
                 throw new ClientAlreadyExistsException(nameof(client));
             }
 
-            await _repository.InsertAsync(_mapper.Map<Domain.Entity.Client>(client));
+            await _repository.InsertAsync(_mapper.Map<Domain.Entity.ClientEntity>(client));
 
         }
 
-        public async Task UpdateClientAsync(Client client) 
+        public async Task UpdateClientAsync(ClientDto client) 
         {
 
             var clientEntity = _repository
@@ -79,7 +79,6 @@ namespace Services
         }
 
         #region Private methods
-
         private bool ClientExistsAndIsActive(string idNumber) =>
             GetClient(idNumber) != null;
         #endregion

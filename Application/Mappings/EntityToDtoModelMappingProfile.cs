@@ -10,8 +10,8 @@ namespace Application.Mappings
     {
         public EntityToDtoModelMappingProfile()
         {
-            CreateMap<Domain.Entity.Client, Domain.DTOs.Client>();
-            CreateMap<Domain.Entity.Car, Domain.DTOs.Car>();
+            CreateMap<Domain.Entity.ClientEntity, Domain.DTOs.ClientDto>();
+            CreateMap<Domain.Entity.CarEntity, Domain.DTOs.CarDto>();
         }
     }
 }

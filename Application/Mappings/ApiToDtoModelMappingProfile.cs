@@ -11,9 +11,9 @@ namespace Application.Mappings
     {
         public ApiToDtoModelMappingProfile() 
         {
-            CreateMap<Domain.APIModels.Car, Domain.DTOs.Car>();
+            CreateMap<Domain.APIModels.CarRequestResponse, Domain.DTOs.CarDto>();
 
-            CreateMap<Domain.APIModels.Client, Domain.DTOs.Client>();
+            CreateMap<Domain.APIModels.ClientRequestResponse, Domain.DTOs.ClientDto>();
         } 
     }
 }

@@ -12,9 +12,9 @@ namespace Repository.EntityTypeConfiguration
 {
    
 
-    public class CarEntityTypeConfiguration : IEntityTypeConfiguration<Car>
+    public class CarEntityTypeConfiguration : IEntityTypeConfiguration<CarEntity>
     {
-        public void Configure(EntityTypeBuilder<Car> entityTypeBuilder)
+        public void Configure(EntityTypeBuilder<CarEntity> entityTypeBuilder)
         {
 
             entityTypeBuilder.Navigation(car => car.Client)

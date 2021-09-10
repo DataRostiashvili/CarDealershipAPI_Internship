@@ -2,7 +2,7 @@
 
 namespace Domain.DTOs
 {
-    public class Car : BaseDto
+    public class CarDto : BaseDto
     {
 
         public string Brand { get; set; }

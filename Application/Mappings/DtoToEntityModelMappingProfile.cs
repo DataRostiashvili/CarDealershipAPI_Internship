@@ -10,7 +10,7 @@ namespace Application.Mappings
     {
         public DtoToEntityModelMappingProfile() 
         {
-            CreateMap<Domain.DTOs.Client, Domain.Entity.Client>()
+            CreateMap<Domain.DTOs.ClientDto, Domain.Entity.ClientEntity>()
                 .ForPath(entityClient => entityClient.ClientContactInfo.Address,
                     opt => opt.MapFrom(dtoClient => dtoClient.Address))
 
@@ -21,7 +21,7 @@ namespace Application.Mappings
                     opt => opt.MapFrom(dtoClient => dtoClient.Email));
 
 
-            CreateMap<Domain.DTOs.Car, Domain.Entity.Car>();
+            CreateMap<Domain.DTOs.CarDto, Domain.Entity.CarEntity>();
         }
     }
 }

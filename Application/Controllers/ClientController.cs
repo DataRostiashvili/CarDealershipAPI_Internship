@@ -32,13 +32,13 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Client>> RegisterClientAsync(Client client)
+        public async Task<ActionResult<ClientRequestResponse>> RegisterClientAsync(ClientRequestResponse client)
         {
           
 
             try
             {
-                await _clientService.InsertClientAsync(_mapper.Map<Domain.DTOs.Client>(client));
+                await _clientService.InsertClientAsync(_mapper.Map<Domain.DTOs.ClientDto>(client));
             }
             catch (ClientAlreadyExistsException ex)
             {
@@ -52,9 +52,9 @@ namespace Application.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Client> GetClient(string idNumber) 
+        public ActionResult<ClientRequestResponse> GetClient(string idNumber) 
         {
-            Domain.DTOs.Client dtoClient;
+            Domain.DTOs.ClientDto dtoClient;
             try
             {
                  dtoClient = _clientService.GetClient(idNumber);
@@ -65,7 +65,7 @@ namespace Application.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return Ok(_mapper.Map<Domain.APIModels.Client>(dtoClient));
+            return Ok(_mapper.Map<Domain.APIModels.ClientRequestResponse>(dtoClient));
         }
 
         [HttpDelete]
@@ -87,13 +87,13 @@ namespace Application.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateClientAsync(Client client) 
+        public async Task<ActionResult> UpdateClientAsync(ClientRequestResponse client) 
         {
            
 
             try 
             {
-                await _clientService.UpdateClientAsync(_mapper.Map<Domain.DTOs.Client>(client));
+                await _clientService.UpdateClientAsync(_mapper.Map<Domain.DTOs.ClientDto>(client));
 
             }
             catch (ClientDoesntExistsException ex)

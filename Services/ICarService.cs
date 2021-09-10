@@ -8,10 +8,10 @@ namespace Services
 {
     public interface ICarService
     {
-        Task RegisterCarForClientAsync(string clientIDNumber, Car car);
+        Task RegisterCarForClientAsync(string clientIDNumber, CarDto car);
         Task DeleteCarForClientAsync(string clientIDNumber, string carVINCode);
-        IEnumerable<Car> GetCarsForClient(string clientIDNumber);
-        IEnumerable<Car> GetCarsForSale(DateTime from, DateTime to);
+        IEnumerable<CarDto> GetCarsForClient(string clientIDNumber);
+        IEnumerable<CarDto> GetCarsForSale(DateTime from, DateTime to);
         Task BuyCarForClientAsync(string clientIDNumber, string carVINCode);
     }
 }

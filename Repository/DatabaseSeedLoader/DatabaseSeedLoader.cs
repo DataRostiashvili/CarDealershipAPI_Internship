@@ -13,31 +13,31 @@ namespace Repository.DatabaseSeedLoader
     public  class DatabaseSeedLoader : IDatabaseSeedLoader
     {
          readonly IMapper _mapper;
-         readonly IRepository<Domain.Entity.Client> _clientRepository;
-        readonly IRepository<Domain.Entity.Car> _carRepository;
+         readonly IRepository<Domain.Entity.ClientEntity> _clientRepository;
+        readonly IRepository<Domain.Entity.CarEntity> _carRepository;
 
-         List<Client> clients = new()
+         List<ClientEntity> clients = new()
         {
 
-             new Client { IsActive = true, Name = "Data", Surname = "Rostiashvili", IDNumber = "11112222333", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfo { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
-             new Client { IsActive = true, Name = "Giorgi", Surname = "Edisherashvili", IDNumber = "11112222533", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfo { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
-             new Client { IsActive = true, Name = "Vasil", Surname = "Wantiani", IDNumber = "11412222333", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfo { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
-             new Client { IsActive = true, Name = "Toma", Surname = "axalaia", IDNumber = "11112222733", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfo { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
-             new Client { IsActive = true, Name = "Vano", Surname = "Grdzelishvili", IDNumber = "11112222313", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfo { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } }
+             new ClientEntity { IsActive = true, Name = "Data", Surname = "Rostiashvili", IDNumber = "11112222333", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
+             new ClientEntity { IsActive = true, Name = "Giorgi", Surname = "Edisherashvili", IDNumber = "11112222533", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
+             new ClientEntity { IsActive = true, Name = "Vasil", Surname = "Wantiani", IDNumber = "11412222333", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
+             new ClientEntity { IsActive = true, Name = "Toma", Surname = "axalaia", IDNumber = "11112222733", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
+             new ClientEntity { IsActive = true, Name = "Vano", Surname = "Grdzelishvili", IDNumber = "11112222313", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } }
 
 
          };
-        List<Domain.Entity.Car> cars = new()
+        List<Domain.Entity.CarEntity> cars = new()
         {
-            new Domain.Entity.Car { IsActive = true, Brand = "Honda", Model = "CR-V", ProductionYear = 2001, SellingPrice = 2500.00m, StateNumber="ZR397RZ",  VIN = "11112222333344445" },
-            new Domain.Entity.Car { IsActive = true, Brand = "Mercedes", Model = "CLS", ProductionYear = 2001, SellingPrice = 2100.00m, StateNumber = "ZR367RZ", VIN = "11112222353344445" },
-            new Domain.Entity.Car { IsActive = true, Brand = "Honda", Model = "FIT", ProductionYear = 2001, SellingPrice = 2500.00m, StateNumber = "ZR117RZ", VIN = "11112322333344445" },
-            new Domain.Entity.Car { IsActive = true, Brand = "FORD", Model = "F-150", ProductionYear = 2021, SellingPrice = 62500.00m, StateNumber = "ZR397RT", VIN = "11112922333344445" },
+            new Domain.Entity.CarEntity { IsActive = true, Brand = "Honda", Model = "CR-V", ProductionYear = 2001, SellingPrice = 2500.00m, StateNumber="ZR397RZ",  VIN = "11112222333344445" },
+            new Domain.Entity.CarEntity { IsActive = true, Brand = "Mercedes", Model = "CLS", ProductionYear = 2001, SellingPrice = 2100.00m, StateNumber = "ZR367RZ", VIN = "11112222353344445" },
+            new Domain.Entity.CarEntity { IsActive = true, Brand = "Honda", Model = "FIT", ProductionYear = 2001, SellingPrice = 2500.00m, StateNumber = "ZR117RZ", VIN = "11112322333344445" },
+            new Domain.Entity.CarEntity { IsActive = true, Brand = "FORD", Model = "F-150", ProductionYear = 2021, SellingPrice = 62500.00m, StateNumber = "ZR397RT", VIN = "11112922333344445" },
 
         };
 
-        public DatabaseSeedLoader(IRepository<Domain.Entity.Client> clientRepository,
-            IRepository<Domain.Entity.Car> carRepository,
+        public DatabaseSeedLoader(IRepository<Domain.Entity.ClientEntity> clientRepository,
+            IRepository<Domain.Entity.CarEntity> carRepository,
             IMapper mapper) {
 
             _clientRepository = clientRepository;

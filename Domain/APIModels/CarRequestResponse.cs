@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Entity
+namespace Domain.APIModels
 {
-    public class Car  : BaseEntity
+    public class CarRequestResponse
     {
-        public int CarId { get; set; }
 
 
         [MaxLength(128)]
@@ -42,9 +41,6 @@ namespace Domain.Entity
         [Required]
         public DateTime SellingEndDate { get; set; }
 
-        public bool IsSold { get; set; }
 
-        public Client Client { get; set; }
-        public int ClientId { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entity
 {
-    public class Client : BaseEntity
+    public class ClientEntity : BaseEntity
     {
         public int ClientId { get; set; }
 
@@ -29,9 +29,9 @@ namespace Domain.Entity
         public DateTime DateOfBirth { get; set; }
 
 
-        public ClientContactInfo ClientContactInfo { get; set; }
+        public ClientContactInfoEntity ClientContactInfo { get; set; }
 
-        public ICollection<Car> Cars { get; set; } = new List<Car>();
+        public ICollection<CarEntity> Cars { get; set; } = new List<CarEntity>();
 
     }
 }

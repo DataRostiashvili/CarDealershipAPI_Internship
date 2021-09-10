@@ -10,9 +10,9 @@ namespace Services
     public  interface IClientService
     {
         // IEnumerable<Client> GetAllClients();
-        Client GetClient(string idNumber);
-        Task InsertClientAsync(Client customer);
-        Task UpdateClientAsync(Client customer);
+        ClientDto GetClient(string idNumber);
+        Task InsertClientAsync(ClientDto customer);
+        Task UpdateClientAsync(ClientDto customer);
         Task DeleteClientAsync(string idNumber);
     }
 }

@@ -24,9 +24,9 @@ namespace ApplicationTest.Controllers
         readonly IMapper _mapper = RealMapperFactory.Create();
         //readonly Mock<ILoggerAdapter<ClientController>> _mockLogger = new();
 
-        readonly Domain.APIModels.Client _sampleValidClient = new()
+        readonly Domain.APIModels.ClientRequestResponse _sampleValidClient = new()
         { Address = "some", IDNumber = "11112222333", DateOfBirth = DateTime.Now, Email = "w@g.c", Name = "data", PhoneNumber = "111222333", Surname = "rostiashvili" };
-        readonly Domain.APIModels.Client _sampleInvalidClient = It.IsAny<Domain.APIModels.Client>();
+        readonly Domain.APIModels.ClientRequestResponse _sampleInvalidClient = It.IsAny<Domain.APIModels.ClientRequestResponse>();
 
 
 
@@ -37,7 +37,7 @@ namespace ApplicationTest.Controllers
         public async Task RegisterClientAsync__should_return_ok_for_valid_input()
         {
             var mockClientService = Mock.Of<IClientService>();
-            Mock.Get(mockClientService).Setup(service => service.InsertClientAsync(_mapper.Map<Domain.DTOs.Client>(_sampleValidClient)))
+            Mock.Get(mockClientService).Setup(service => service.InsertClientAsync(_mapper.Map<Domain.DTOs.ClientDto>(_sampleValidClient)))
                 .Returns(Task.CompletedTask);
 
             Mock<ILoggerAdapter<ClientController>> mockLogger = new();
@@ -61,7 +61,7 @@ namespace ApplicationTest.Controllers
         public async Task RegisterClientAsync__should_return_bad_request_result_object_for_registered_user()
         {
             var mockClientService = Mock.Of<IClientService>();
-            Mock.Get(mockClientService).Setup(service => service.InsertClientAsync(It.IsAny<Domain.DTOs.Client>()))
+            Mock.Get(mockClientService).Setup(service => service.InsertClientAsync(It.IsAny<Domain.DTOs.ClientDto>()))
                 .Throws<ClientAlreadyExistsException>();
 
 
@@ -112,7 +112,7 @@ namespace ApplicationTest.Controllers
         {
             var mockClientService = Mock.Of<IClientService>();
             Mock.Get(mockClientService).Setup(service => service.GetClient(It.IsAny<string>()))
-                .Returns(It.IsAny<Domain.DTOs.Client>());
+                .Returns(It.IsAny<Domain.DTOs.ClientDto>());
 
 
             Mock<ILoggerAdapter<ClientController>> mockLogger = new();
@@ -137,7 +137,7 @@ namespace ApplicationTest.Controllers
         public async Task UpdateClient__should_return_bad_request_result_object_for_nonexistent_user()
         {
             var mockClientService = Mock.Of<IClientService>();
-            Mock.Get(mockClientService).Setup(service => service.UpdateClientAsync(It.IsAny<Domain.DTOs.Client>()))
+            Mock.Get(mockClientService).Setup(service => service.UpdateClientAsync(It.IsAny<Domain.DTOs.ClientDto>()))
                 .Throws<ClientDoesntExistsException>();
 
 
@@ -161,7 +161,7 @@ namespace ApplicationTest.Controllers
         async Task UpdateClient__should_return_ok_result_object_for_valid_user()
         {
             var mockClientService = Mock.Of<IClientService>();
-            Mock.Get(mockClientService).Setup(service => service.UpdateClientAsync(It.IsAny<Domain.DTOs.Client>()))
+            Mock.Get(mockClientService).Setup(service => service.UpdateClientAsync(It.IsAny<Domain.DTOs.ClientDto>()))
                 .Returns(Task.CompletedTask);
 
 

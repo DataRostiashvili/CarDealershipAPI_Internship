@@ -10,8 +10,8 @@ namespace Application.Mappings
     {
         public DtoToApiModelMappingProfile()
         {
-            CreateMap<Domain.DTOs.Client, Domain.APIModels.Client>();
-            CreateMap<Domain.DTOs.Car, Domain.APIModels.Car>();
+            CreateMap<Domain.DTOs.ClientDto, Domain.APIModels.ClientRequestResponse>();
+            CreateMap<Domain.DTOs.CarDto, Domain.APIModels.CarRequestResponse>();
         }
     }
 }

@@ -34,12 +34,12 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Car>> RegisterCarForClientAsync(string clientIDNumber, Car car)
+        public async Task<ActionResult<CarRequestResponse>> RegisterCarForClientAsync(string clientIDNumber, CarRequestResponse car)
         {
             try
             {
                 await _carService
-                    .RegisterCarForClientAsync(clientIDNumber, _mapper.Map<Domain.DTOs.Car>(car));
+                    .RegisterCarForClientAsync(clientIDNumber, _mapper.Map<Domain.DTOs.CarDto>(car));
 
             }
             catch (CarAlreadyRegisteredForClientException ex)
@@ -107,9 +107,9 @@ namespace Application.Controllers
 
         }
         [HttpGet]
-        public  ActionResult<IEnumerable<Car>> GetCarsForSale(DateTime from, DateTime to)
+        public  ActionResult<IEnumerable<CarRequestResponse>> GetCarsForSale(DateTime from, DateTime to)
         {
-            var cars = _mapper.Map<Domain.APIModels.Car[]>(_carService.GetCarsForSale(from, to));
+            var cars = _mapper.Map<Domain.APIModels.CarRequestResponse[]>(_carService.GetCarsForSale(from, to));
             return Ok(cars);
         }
        // [HttpGet]

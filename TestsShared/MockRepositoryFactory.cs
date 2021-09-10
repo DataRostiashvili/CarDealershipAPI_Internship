@@ -10,11 +10,27 @@ namespace TestsShared
 {
     public static class MockRepositoryFactory
     {
-        public static void Create<T>() where T : Domain.Entity.BaseEntity
+        public static Mock<IRepository<T>> Create<T>() where T : Domain.Entity.BaseEntity
         {
             var mockRepository = new Mock<IRepository<T>>();
 
-           // mockRepository.Setups(
+            mockRepository
+                .Setup(rep => rep.DeleteByPredicateAsync(It.IsAny<Func<T, bool>>()))
+                .Returns(Task.CompletedTask);
+            mockRepository
+                .Setup(rep => rep.GetAll())
+                .Returns(It.IsAny<IEnumerable<T>>());
+            mockRepository
+                .Setup(rep => rep.GetByPredicate(It.IsAny<Func<T, bool>>()))
+                .Returns(Array.Empty<T>());
+            mockRepository
+                .Setup(rep => rep.InsertAsync(It.IsAny<T>()))
+                .Returns(Task.CompletedTask);
+            mockRepository
+                .Setup(rep => rep.UpdateAsync(It.IsAny<T>()))
+                .Returns(Task.CompletedTask);
+
+            return mockRepository;
         }
     }
 }

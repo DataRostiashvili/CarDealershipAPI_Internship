@@ -9,9 +9,9 @@ using Domain.Entity;
 
 namespace Repository.EntityTypeConfiguration
 {
-    public class ClientEntityTypeConfiguration : IEntityTypeConfiguration<Client>
+    public class ClientEntityTypeConfiguration : IEntityTypeConfiguration<ClientEntity>
     {
-        public void Configure(EntityTypeBuilder<Client> entityTypeBuilder)
+        public void Configure(EntityTypeBuilder<ClientEntity> entityTypeBuilder)
         {
 
             entityTypeBuilder.Navigation(client => client.Cars)

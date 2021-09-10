@@ -40,13 +40,11 @@ namespace Repository.RepositoryPattern
 
         public  IEnumerable<T> GetByPredicate(Func<T, bool> predicate) 
             =>  entities.Where(predicate);
-        //https://dotnetcoretutorials.com/2021/03/07/eager-load-navigation-properties-by-default-in-ef-core/
 
 
 
         public async Task InsertAsync(T entity) 
         {
-            _ = entity ?? throw new ArgumentNullException(nameof(entity));
             
             await entities.AddAsync(entity);
             
@@ -55,7 +53,6 @@ namespace Repository.RepositoryPattern
 
         public async Task UpdateAsync(T entity)
         {
-            _ = entity ?? throw new ArgumentNullException(nameof(entity));
             entities.Update(entity);
             await _applicationDbContext.SaveChangesAsync();
                 

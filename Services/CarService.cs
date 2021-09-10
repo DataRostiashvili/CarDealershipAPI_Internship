@@ -12,13 +12,13 @@ namespace Services
 {
     public class CarService : ICarService
     {
-        readonly IRepository<Domain.Entity.Car> _carRepository;
-        readonly IRepository<Domain.Entity.Client> _clientRepository;
+        readonly IRepository<Domain.Entity.CarEntity> _carRepository;
+        readonly IRepository<Domain.Entity.ClientEntity> _clientRepository;
         readonly IMapper _mapper;
 
 
-        public CarService(IRepository<Domain.Entity.Car> carRepository,
-            IRepository<Domain.Entity.Client> clientRepository,
+        public CarService(IRepository<Domain.Entity.CarEntity> carRepository,
+            IRepository<Domain.Entity.ClientEntity> clientRepository,
             IMapper mapper)
         {
             _carRepository = carRepository;
@@ -26,7 +26,7 @@ namespace Services
             _mapper = mapper;
         }
 
-        public async Task RegisterCarForClientAsync(string clientIDNumber, Car car)
+        public async Task RegisterCarForClientAsync(string clientIDNumber, CarDto car)
         {
             var clientEntity = _clientRepository
                 .GetByPredicate(entityClient => entityClient.IDNumber == clientIDNumber)
@@ -46,8 +46,8 @@ namespace Services
                 }
             }
 
-            clientEntity.Cars ??= new List<Domain.Entity.Car>();
-            clientEntity.Cars.Add(_mapper.Map<Domain.Entity.Car>(car));
+            clientEntity.Cars ??= new List<Domain.Entity.CarEntity>();
+            clientEntity.Cars.Add(_mapper.Map<Domain.Entity.CarEntity>(car));
 
             await _clientRepository.UpdateAsync(clientEntity);
         }
@@ -96,23 +96,23 @@ namespace Services
 
             await _carRepository.DeleteByPredicateAsync(carEntity => carEntity.VIN == carVINCode);
         }
-        public IEnumerable<Car> GetCarsForSale(DateTime from, DateTime to)
+        public IEnumerable<CarDto> GetCarsForSale(DateTime from, DateTime to)
         {
             return GetAllCars().Where(car => car.SellingStartDate > from && car.SellingEndDate < to);
         }
         
-        public IEnumerable<Car> GetCarsForClient(string clientIDNumber)
+        public IEnumerable<CarDto> GetCarsForClient(string clientIDNumber)
         {
             var entityList = _carRepository
                 .GetByPredicate(entityCar => entityCar.Client.IDNumber == clientIDNumber);
 
-            return _mapper.Map<Domain.DTOs.Car[]>(entityList);
+            return _mapper.Map<Domain.DTOs.CarDto[]>(entityList);
         }
 
 
         #region private methods
-        private IEnumerable<Car> GetAllCars() =>
-            _mapper.Map<Domain.DTOs.Car[]>(_carRepository.GetAll());
+        private IEnumerable<CarDto> GetAllCars() =>
+            _mapper.Map<Domain.DTOs.CarDto[]>(_carRepository.GetAll());
 
         #endregion
 

@@ -12,8 +12,8 @@ namespace Repository
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<Client> Clients { get; set; }
-        public DbSet<Car> Cars { get; set; }
+        public DbSet<ClientEntity> Clients { get; set; }
+        public DbSet<CarEntity> Cars { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions options)
