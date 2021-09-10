@@ -7,7 +7,7 @@ using AutoMapper;
 using Application.Mappings;
 
 
-namespace ApplicationTest
+namespace TestsShared
 {
     public static  class RealMapperFactory
     {

@@ -14,14 +14,13 @@ using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Exceptions;
 using Domain.APIModels;
+using TestsShared;
 
 namespace ApplicationTest.Controllers
 {
     public class CarControllerTests
     {
-        //readonly Mock<IClientService> _mockClientService = new();
         readonly IMapper _mapper = RealMapperFactory.Create();
-        //readonly Mock<ILoggerAdapter<ClientController>> _mockLogger = new();
 
         readonly Client _sampleValidClient = new()
         { Address = "some", IDNumber = "11112222333", DateOfBirth = DateTime.Now, Email = "w@g.c", Name = "data", PhoneNumber = "111222333", Surname = "rostiashvili" };
@@ -37,8 +36,7 @@ namespace ApplicationTest.Controllers
             Mock.Get(mockCarService).Setup(service => service.RegisterCarForClientAsync(It.IsAny<string>(), It.IsAny<Domain.DTOs.Car>()))
                 .Returns(Task.CompletedTask);
 
-            Mock<ILoggerAdapter<CarController>> mockLogger = new();
-            mockLogger.Setup(logger => logger.LogInformation(It.IsAny<string>()));
+            var mockLogger = MockLoggerFactory.Create<CarController>();
 
 
             var clientController = new CarController(_mapper,
@@ -62,8 +60,7 @@ namespace ApplicationTest.Controllers
             Mock.Get(mockCarService).Setup(service => service.RegisterCarForClientAsync(It.IsAny<string>(), It.IsAny<Domain.DTOs.Car>()))
                 .Throws<CarAlreadyRegisteredForClientException>();
 
-            Mock<ILoggerAdapter<CarController>> mockLogger = new();
-            mockLogger.Setup(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()));
+            var mockLogger = MockLoggerFactory.Create<CarController>();
 
 
             var clientController = new CarController(_mapper,
@@ -87,8 +84,7 @@ namespace ApplicationTest.Controllers
             Mock.Get(mockCarService).Setup(service => service.RegisterCarForClientAsync(It.IsAny<string>(), It.IsAny<Domain.DTOs.Car>()))
                 .Throws<ClientDoesntExistsException>();
 
-            Mock<ILoggerAdapter<CarController>> mockLogger = new();
-            mockLogger.Setup(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()));
+            var mockLogger = MockLoggerFactory.Create<CarController>();
 
 
             var clientController = new CarController(_mapper,
@@ -114,8 +110,7 @@ namespace ApplicationTest.Controllers
             Mock.Get(mockCarService).Setup(service => service.BuyCarForClientAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(Task.CompletedTask);
 
-            Mock<ILoggerAdapter<CarController>> mockLogger = new();
-            mockLogger.Setup(logger => logger.LogInformation(It.IsAny<string>()));
+            var mockLogger = MockLoggerFactory.Create<CarController>();
 
 
             var clientController = new CarController(_mapper,
@@ -139,8 +134,7 @@ namespace ApplicationTest.Controllers
             Mock.Get(mockCarService).Setup(service => service.BuyCarForClientAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .Throws<CarAlreadyRegisteredForClientException>();
 
-            Mock<ILoggerAdapter<CarController>> mockLogger = new();
-            mockLogger.Setup(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()));
+            var mockLogger = MockLoggerFactory.Create<CarController>();
 
 
             var clientController = new CarController(_mapper,
@@ -165,8 +159,7 @@ namespace ApplicationTest.Controllers
             Mock.Get(mockCarService).Setup(service => service.BuyCarForClientAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .Throws<ClientDoesntExistsException>();
 
-            Mock<ILoggerAdapter<CarController>> mockLogger = new();
-            mockLogger.Setup(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()));
+            var mockLogger = MockLoggerFactory.Create<CarController>();
 
 
             var clientController = new CarController(_mapper,
@@ -190,8 +183,7 @@ namespace ApplicationTest.Controllers
             Mock.Get(mockCarService).Setup(service => service.BuyCarForClientAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .Throws<CarDoesntExistsException>();
 
-            Mock<ILoggerAdapter<CarController>> mockLogger = new();
-            mockLogger.Setup(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()));
+            var mockLogger = MockLoggerFactory.Create<CarController>();
 
 
             var clientController = new CarController(_mapper,
@@ -218,8 +210,7 @@ namespace ApplicationTest.Controllers
             Mock.Get(mockCarService).Setup(service => service.DeleteCarForClientAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(Task.CompletedTask);
 
-            Mock<ILoggerAdapter<CarController>> mockLogger = new();
-            mockLogger.Setup(logger => logger.LogInformation(It.IsAny<string>()));
+            var mockLogger = MockLoggerFactory.Create<CarController>();
 
 
             var clientController = new CarController(_mapper,
@@ -243,8 +234,8 @@ namespace ApplicationTest.Controllers
             Mock.Get(mockCarService).Setup(service => service.DeleteCarForClientAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .Throws<CarDoesntExistsException>();
 
-            Mock<ILoggerAdapter<CarController>> mockLogger = new();
-            mockLogger.Setup(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()));
+            var mockLogger = MockLoggerFactory.Create<CarController>();
+
 
 
             var clientController = new CarController(_mapper,
@@ -272,8 +263,7 @@ namespace ApplicationTest.Controllers
             Mock.Get(mockCarService).Setup(service => service.GetCarsForSale(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
                 .Returns(It.IsAny<IEnumerable<Domain.DTOs.Car>>);
 
-            Mock<ILoggerAdapter<CarController>> mockLogger = new();
-            mockLogger.Setup(logger => logger.LogInformation(It.IsAny<string>()));
+            var mockLogger = MockLoggerFactory.Create<CarController>();
 
 
             var clientController = new CarController(_mapper,

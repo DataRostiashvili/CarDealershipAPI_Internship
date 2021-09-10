@@ -14,6 +14,7 @@ using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Exceptions;
 using Domain.APIModels;
+using TestsShared;
 
 namespace ApplicationTest.Controllers
 {
