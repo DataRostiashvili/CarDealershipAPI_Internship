@@ -17,7 +17,7 @@ namespace Repository.EntityTypeConfiguration
         public void Configure(EntityTypeBuilder<CarEntity> entityTypeBuilder)
         {
 
-            entityTypeBuilder.Navigation(car => car.Client)
+            entityTypeBuilder.Navigation(car => car.ClientEntity)
                 .AutoInclude();
 
 

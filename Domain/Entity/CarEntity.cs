@@ -9,7 +9,7 @@ namespace Domain.Entity
 {
     public class CarEntity  : BaseEntity
     {
-        public int CarId { get; set; }
+        public int CarEntityId { get; set; }
 
 
         [MaxLength(128)]
@@ -44,7 +44,7 @@ namespace Domain.Entity
 
         public bool IsSold { get; set; }
 
-        public ClientEntity Client { get; set; }
-        public int ClientId { get; set; }
+        public ClientEntity ClientEntity { get; set; }
+        public int ClientEntityId { get; set; }
     }
 }

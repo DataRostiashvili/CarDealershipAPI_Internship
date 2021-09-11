@@ -11,7 +11,7 @@ namespace Domain.Entity
 {
     public class ClientEntity : BaseEntity
     {
-        public int ClientId { get; set; }
+        public int ClientEntityId { get; set; }
 
 
 
@@ -29,7 +29,7 @@ namespace Domain.Entity
         public DateTime DateOfBirth { get; set; }
 
 
-        public ClientContactInfoEntity ClientContactInfo { get; set; }
+        public ClientContactInfoEntity ClientContactInfoEntity { get; set; }
 
         public ICollection<CarEntity> Cars { get; set; } = new List<CarEntity>();
 

@@ -17,8 +17,13 @@ namespace Repository.EntityTypeConfiguration
             entityTypeBuilder.Navigation(client => client.Cars)
                 .AutoInclude();
 
-            entityTypeBuilder.Navigation(client => client.ClientContactInfo)
+            entityTypeBuilder.Navigation(client => client.ClientContactInfoEntity)
                 .AutoInclude();
+
+            entityTypeBuilder
+                .HasOne(clientEntity => clientEntity.ClientContactInfoEntity)
+                .WithOne(clientContactInfoEntity => clientContactInfoEntity.ClientEntity)
+                .HasForeignKey<ClientContactInfoEntity>(clientContactInfoEntity => clientContactInfoEntity.ClientEntityId);
 
 
             entityTypeBuilder

@@ -11,13 +11,13 @@ namespace Application.Mappings
         public DtoToEntityModelMappingProfile() 
         {
             CreateMap<Domain.DTOs.ClientDto, Domain.Entity.ClientEntity>()
-                .ForPath(entityClient => entityClient.ClientContactInfo.Address,
+                .ForPath(entityClient => entityClient.ClientContactInfoEntity.Address,
                     opt => opt.MapFrom(dtoClient => dtoClient.Address))
 
-                .ForPath(entityClient => entityClient.ClientContactInfo.PhoneNumber,
+                .ForPath(entityClient => entityClient.ClientContactInfoEntity.PhoneNumber,
                     opt => opt.MapFrom(dtoClient => dtoClient.PhoneNumber))
 
-                .ForPath(entityClient => entityClient.ClientContactInfo.Email,
+                .ForPath(entityClient => entityClient.ClientContactInfoEntity.Email,
                     opt => opt.MapFrom(dtoClient => dtoClient.Email));
 
 

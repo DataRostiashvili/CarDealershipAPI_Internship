@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading.Tasks;
 using Xunit;
 using TestsShared;
 using AutoMapper;
@@ -27,7 +26,7 @@ namespace ServicesTest
             Surname = "Rostiashvili",
             IDNumber = "11112222333",
             DateOfBirth = DateTime.Now,
-            ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" }
+            ClientContactInfoEntity = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" }
         };
 
         readonly CarEntity _sampleValidCarEntity = new CarEntity { IsActive = true, Brand = "Honda", Model = "CR-V", ProductionYear = 2001, SellingPrice = 2500.00m, StateNumber = "ZR397RZ", VIN = "11112222333344445" };

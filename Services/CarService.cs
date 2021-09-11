@@ -78,7 +78,7 @@ namespace Services
             }
 
 
-            carEntity.Client = clientEntity;
+            carEntity.ClientEntity = clientEntity;
             await _carRepository.UpdateAsync(carEntity);
             
 
@@ -105,7 +105,7 @@ namespace Services
         public IEnumerable<CarDto> GetCarsForClient(string clientIDNumber)
         {
             var entityList = _carRepository
-                .GetByPredicate(entityCar => entityCar.Client.IDNumber == clientIDNumber);
+                .GetByPredicate(entityCar => entityCar.ClientEntity.IDNumber == clientIDNumber);
 
             return _mapper.Map<Domain.DTOs.CarDto[]>(entityList);
         }

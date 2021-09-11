@@ -28,7 +28,7 @@ namespace ServicesTest
                  Surname = "Rostiashvili",
                  IDNumber = "11112222333",
                  DateOfBirth = DateTime.Now,
-                 ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" }
+                 ClientContactInfoEntity = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" }
              };
         readonly ClientDto _sampleValidClientDto;
 

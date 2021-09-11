@@ -19,11 +19,11 @@ namespace Repository.DatabaseSeedLoader
          List<ClientEntity> clients = new()
         {
 
-             new ClientEntity { IsActive = true, Name = "Data", Surname = "Rostiashvili", IDNumber = "11112222333", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
-             new ClientEntity { IsActive = true, Name = "Giorgi", Surname = "Edisherashvili", IDNumber = "11112222533", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
-             new ClientEntity { IsActive = true, Name = "Vasil", Surname = "Wantiani", IDNumber = "11412222333", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
-             new ClientEntity { IsActive = true, Name = "Toma", Surname = "axalaia", IDNumber = "11112222733", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
-             new ClientEntity { IsActive = true, Name = "Vano", Surname = "Grdzelishvili", IDNumber = "11112222313", DateOfBirth = DateTime.Now, ClientContactInfo = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } }
+             new ClientEntity { IsActive = true, Name = "Data", Surname = "Rostiashvili", IDNumber = "11112222333", DateOfBirth = DateTime.Now, ClientContactInfoEntity = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
+             new ClientEntity { IsActive = true, Name = "Giorgi", Surname = "Edisherashvili", IDNumber = "11112222533", DateOfBirth = DateTime.Now, ClientContactInfoEntity = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
+             new ClientEntity { IsActive = true, Name = "Vasil", Surname = "Wantiani", IDNumber = "11412222333", DateOfBirth = DateTime.Now, ClientContactInfoEntity = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
+             new ClientEntity { IsActive = true, Name = "Toma", Surname = "axalaia", IDNumber = "11112222733", DateOfBirth = DateTime.Now, ClientContactInfoEntity = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } },
+             new ClientEntity { IsActive = true, Name = "Vano", Surname = "Grdzelishvili", IDNumber = "11112222313", DateOfBirth = DateTime.Now, ClientContactInfoEntity = new ClientContactInfoEntity { IsActive = true, Address = "misamarti", Email = "s@g.c", PhoneNumber = "555666777" } }
 
 
          };

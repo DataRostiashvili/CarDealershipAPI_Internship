@@ -10,7 +10,7 @@ namespace Domain.Entity
 {
     public class ClientContactInfoEntity : BaseEntity
     {
-        public int ClientContactInfoId { get; set; }
+        public int ClientContactInfoEntityId { get; set; }
 
         [Required]
         [RegularExpression(@"^\d{9}$")]
@@ -20,7 +20,7 @@ namespace Domain.Entity
         [MaxLength(1024)]
         public string Address { get; set; }
 
-        public ClientEntity Client { get; set; }
-        public int ClientId { get; set; }
+        public ClientEntity ClientEntity { get; set; }
+        public int ClientEntityId { get; set; }
     }
 }
