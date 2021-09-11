@@ -51,11 +51,6 @@ namespace Repository.DatabaseSeedLoader
             clients[1].Cars.Add(cars[2]);
             clients[2].Cars.Add(cars[3]);
 
-            //cars[0].Client = _mapper.Map<Domain.Entity.Client>(clients[0]);
-            //cars[1].Client = _mapper.Map<Domain.Entity.Client>(clients[0]);
-            //cars[2].Client = _mapper.Map<Domain.Entity.Client>(clients[1]);
-            //cars[3].Client = _mapper.Map<Domain.Entity.Client>(clients[2]);
-
         }
         public async Task SeedData()
         {

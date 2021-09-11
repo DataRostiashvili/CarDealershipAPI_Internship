@@ -55,7 +55,7 @@ namespace Services
         {
             var clientEntity = _clientRepository
                 .GetByPredicate(entityClient => entityClient.IDNumber == clientIDNumber)
-                .FirstOrDefault();
+                ?.FirstOrDefault();
 
             
               _ = clientEntity ??  throw new ClientDoesntExistsException("client with the given IDNumber doesn't exists");
@@ -63,9 +63,9 @@ namespace Services
 
             var carEntity = _carRepository
                 .GetByPredicate(car => car.VIN == carVINCode)
-                .FirstOrDefault();
+                ?.FirstOrDefault();
 
-            _ = clientEntity ?? throw new CarDoesntExistsException($"car (VIN: {carVINCode} doesn't exists");
+            _ = carEntity ?? throw new CarDoesntExistsException($"car (VIN: {carVINCode} doesn't exists");
 
 
             foreach (var carOfClient in GetCarsForClient(clientIDNumber))
@@ -86,7 +86,8 @@ namespace Services
         public async Task DeleteCarForClientAsync(string clientIDNumber, string carVINCode)
         {
             var carToDelete = GetCarsForClient(clientIDNumber)
-                .Where(carEntity => carEntity.VIN == carVINCode).FirstOrDefault();
+                ?.Where(carEntity => carEntity.VIN == carVINCode)
+                ?.FirstOrDefault();
 
             if (carToDelete is null)
             {

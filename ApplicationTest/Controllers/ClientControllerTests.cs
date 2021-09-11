@@ -88,7 +88,7 @@ namespace ApplicationTest.Controllers
         public void GetClient__should_return_bad_request_for_nonexistent_client()
         {
             var mockClientService = Mock.Of<IClientService>();
-            Mock.Get(mockClientService).Setup(service => service.GetClient(It.IsAny<string>()))
+            Mock.Get(mockClientService).Setup(service => service.GetClient(It.IsAny<string>(), It.IsAny<bool>()))
                 .Throws<ClientDoesntExistsException>();
 
 
@@ -111,7 +111,7 @@ namespace ApplicationTest.Controllers
         public void GetClient__should_return_ok_for_exsiting_client()
         {
             var mockClientService = Mock.Of<IClientService>();
-            Mock.Get(mockClientService).Setup(service => service.GetClient(It.IsAny<string>()))
+            Mock.Get(mockClientService).Setup(service => service.GetClient(It.IsAny<string>(), It.IsAny<bool>()))
                 .Returns(It.IsAny<Domain.DTOs.ClientDto>());
 
 

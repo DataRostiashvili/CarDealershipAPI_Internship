@@ -9,8 +9,7 @@ namespace Services
 {
     public  interface IClientService
     {
-        // IEnumerable<Client> GetAllClients();
-        ClientDto GetClient(string idNumber);
+        ClientDto GetClient(string idNumber, bool includeInactiveClients = false);
         Task InsertClientAsync(ClientDto customer);
         Task UpdateClientAsync(ClientDto customer);
         Task DeleteClientAsync(string idNumber);

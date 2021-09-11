@@ -19,7 +19,7 @@ namespace TestsShared
                 .Returns(Task.CompletedTask);
             mockRepository
                 .Setup(rep => rep.GetAll())
-                .Returns(It.IsAny<IEnumerable<T>>());
+                .Returns(Array.Empty<T>());
             mockRepository
                 .Setup(rep => rep.GetByPredicate(It.IsAny<Func<T, bool>>()))
                 .Returns(Array.Empty<T>());
