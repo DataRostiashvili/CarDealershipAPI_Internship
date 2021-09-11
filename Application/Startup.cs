@@ -59,6 +59,8 @@ namespace Application
 
             services.AddScoped(typeof(ILoggerAdapter<>), typeof(LoggerAdapter<>));
 
+            services.AddTransient<IReportService, ReportService>();
+
             if (_currentEnvironment.IsDevelopment())
             {
                 services.AddTransient<IDatabaseSeedLoader, DatabaseSeedLoader>();

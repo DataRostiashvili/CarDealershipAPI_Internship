@@ -31,7 +31,7 @@ namespace Services
             var clientEntity = _clientRepository
                 .GetByPredicate(entityClient => entityClient.IDNumber == clientIDNumber)
                 .FirstOrDefault();
-
+            
             if (clientEntity == null)
             {
                 throw new ClientDoesntExistsException("client with the given IDNumber doesn't exists");
@@ -111,11 +111,10 @@ namespace Services
         }
 
 
-        #region private methods
-        private IEnumerable<CarDto> GetAllCars() =>
+        public IEnumerable<CarDto> GetAllCars() =>
             _mapper.Map<Domain.DTOs.CarDto[]>(_carRepository.GetAll());
 
-        #endregion
+        
 
     }
 }

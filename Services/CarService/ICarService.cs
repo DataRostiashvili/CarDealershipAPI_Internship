@@ -13,5 +13,6 @@ namespace Services
         IEnumerable<CarDto> GetCarsForClient(string clientIDNumber);
         IEnumerable<CarDto> GetCarsForSale(DateTime from, DateTime to);
         Task BuyCarForClientAsync(string clientIDNumber, string carVINCode);
+        IEnumerable<CarDto> GetAllCars();
     }
 }
