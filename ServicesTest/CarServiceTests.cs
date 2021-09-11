@@ -241,13 +241,7 @@ namespace ServicesTest
             //Arrange
             var carRepository = MockRepositoryFactory.Create<CarEntity>();
 
-          //  carRepository.Setup(rep => rep.GetByPredicate(It.IsAny<Func<CarEntity, bool>>()))
-             //   .Returns(new[] { new CarEntity { VIN = _sampleValidCarEntity.VIN } });
-
             var clientRepository = MockRepositoryFactory.Create<ClientEntity>();
-
-            //clientRepository.Setup(rep => rep.GetByPredicate(It.IsAny<Func<ClientEntity, bool>>()))
-              //  .Returns(new[] { _sampleValidClientEntity });
 
             var carService = new CarService(carRepository.Object, clientRepository.Object, _mapper);
 
@@ -257,14 +251,13 @@ namespace ServicesTest
             await Assert.ThrowsAsync<CarDoesntExistsException>
                 (async () => await carService.DeleteCarForClientAsync(It.IsAny<string>(), It.IsAny<string>()));
 
-          //  clientRepository.Verify(rep => rep.GetByPredicate(It.IsAny<Func<ClientEntity, bool>>()), Times.Once());
-
             carRepository.Verify(rep => rep.UpdateAsync(It.IsAny<CarEntity>()), Times.Never());
             carRepository.Verify(rep => rep.GetByPredicate(It.IsAny<Func<CarEntity, bool>>()), Times.Once());
 
 
         }
 
+        [Fact]
         public async Task DeleteCarForClientAsync__should_delete_car_for_valid_inputs()
         {
             //Arrange
@@ -283,16 +276,42 @@ namespace ServicesTest
 
             //Act and Assert
 
-            await Assert.ThrowsAsync<CarDoesntExistsException>
-                (async () => await carService.DeleteCarForClientAsync(It.IsAny<string>(), It.IsAny<string>()));
+           await carService.DeleteCarForClientAsync(It.IsAny<string>(), _sampleValidCarEntity.VIN);
 
-            //  clientRepository.Verify(rep => rep.GetByPredicate(It.IsAny<Func<ClientEntity, bool>>()), Times.Once());
-
-            carRepository.Verify(rep => rep.UpdateAsync(It.IsAny<CarEntity>()), Times.Never());
+            carRepository.Verify(rep => rep.DeleteByPredicateAsync(It.IsAny<Func<CarEntity, bool>>()), Times.Once());
             carRepository.Verify(rep => rep.GetByPredicate(It.IsAny<Func<CarEntity, bool>>()), Times.Once());
 
 
         }
+        #endregion
+
+
+        #region GetCarsForClient
+
+        [Fact]
+        public async Task DeleteCarForClientAsync__should_get_cars_for_client()
+        {
+            //Arrange
+            var carRepository = MockRepositoryFactory.Create<CarEntity>();
+
+            carRepository.Setup(rep => rep.GetByPredicate(It.IsAny<Func<CarEntity, bool>>()))
+             .Returns(new[] { new CarEntity { VIN = _sampleValidCarEntity.VIN } });
+
+            var clientRepository = MockRepositoryFactory.Create<ClientEntity>();
+
+            var carService = new CarService(carRepository.Object, clientRepository.Object, _mapper);
+
+
+            //Act and Assert
+
+            carService.GetCarsForClient(It.IsAny<string>());
+
+          
+            carRepository.Verify(rep => rep.GetByPredicate(It.IsAny<Func<CarEntity, bool>>()), Times.Once());
+
+
+        }
+
         #endregion
     }
 }
